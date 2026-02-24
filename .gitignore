@@ -1,0 +1,75 @@
+# === Docker environment files to keep ===
+# (These are intentionally NOT ignored)
+# Dockerfile
+# docker-compose.yml
+# docker-entrypoint.sh
+# .env.example
+# bin/
+
+# === Ignore all projects inside workspace/ by default ===
+# This keeps your repo clean from accidentally committing entire projects.
+# === Workspace folder: keep the directory, ignore its contents ===
+workspace/*
+!workspace/.gitkeep
+# To include a specific project as an example, uncomment or add lines like:
+# !workspace/sample-app/
+# !workspace/another-project/
+
+# === Ruby/Rails specific ignores (apply if projects are mounted) ===
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Ignore bundler and gem caches
+/vendor/bundle
+/.bundle
+Gemfile.lock           # app-specific; keep in project repos
+
+# === Environment files (secrets) ===
+.env
+.env*.local
+config/master.key
+config/credentials/*.key
+
+# === Logs and temp files ===
+log/*
+tmp/*
+!log/.keep
+!tmp/.keep
+
+# === Database files ===
+*.sqlite3
+*.sqlite3-*
+
+# === Uploaded files (if any) ===
+/storage/*
+!/storage/.keep
+/public/uploads
+
+# === Docker-specific ignores ===
+/docker/volumes/
+/data/
+.dockerignore
+
+# === Editor/OS files ===
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.bak
+
+# === Node.js (if you ever add frontend tooling) ===
+/node_modules/
+/yarn-error.log
+package-lock.json
+yarn.lock
