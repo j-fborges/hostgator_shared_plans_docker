@@ -18,4 +18,4 @@ docker compose exec app bundle exec rails db:create db:migrate db:seed 2>/dev/nu
 
 echo "✅ Environment ready!"
 echo "   Access your app at http://localhost:3000"
-echo "   To open a shell in the app container: docker compose exec app bash"
+echo "   To open a shell in the app container: compose run --rm app bash"

@@ -2,52 +2,34 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        APP_ROOT: ${APP_ROOT}
-        RAILS_PROJECTS_FOLDER: ${RAILS_PROJECTS_FOLDER}
-    container_name: hostgator-matching
+    image: hostgator-env
     ports:
       - "3000:3000"
     volumes:
       # Mount your host workspace folder (adjust HOST_WORKSPACE in .env if needed)
       - ${HOST_WORKSPACE:-./workspace}:${APP_ROOT}${RAILS_PROJECTS_FOLDER}:cached
-      # Persist bundle gems
+      # Named volume for gems – this will persist across container runs
       - bundle-data:${APP_ROOT}/ruby/gems
       # Mount SSH keys for deployment (optional)
       - ~/.ssh:/root/.ssh:ro
     environment:
-      - RAILS_ENV=development
-      - MYSQL_BRIDGE_URL=http://php-bridge:8080/mysql_bridge.php
-      - MYSQL_BRIDGE_SECRET=local-docker-secret-123
-      - LD_LIBRARY_PATH=/opt/cpanel/ea-ruby24/root/usr/bin/../local/bin:/opt/cpanel/ea-ruby24/root/usr/lib64:/opt/cpanel/ea-openssl/lib64
+    - GEM_HOME=${APP_ROOT}/ruby/gems
+    - BUNDLE_PATH=${APP_ROOT}/ruby/gems
+    - BUNDLE_BIN=${APP_ROOT}/ruby/gems/bin
+    # Add gem bin to PATH while keeping Ruby and system paths
+    - PATH=${APP_ROOT}/ruby/gems/bin:/usr/local/ruby-2.4.10/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    # Other env vars you need (RAILS_ENV, etc.)
+    working_dir: ${APP_ROOT}${RAILS_PROJECTS_FOLDER}
+    # Override the default command to get a bash shell (optional)
+    command: bash
+    # Keep stdin_open and tty for interactive use
     stdin_open: true
     tty: true
     networks:
       - hostgator-net
     depends_on:
       - mysql
-      - php-bridge
 
-  php-bridge:
-    image: php:7.4-apache
-    container_name: php-bridge
-    ports:
-      - "8080:80"
-    volumes:
-      - ./public:/var/www/html
-      - ./mysql_bridge.php:/var/www/html/mysql_bridge.php
-    environment:
-      - MYSQL_HOST=mysql
-      - MYSQL_DATABASE=myapp_development
-      - MYSQL_USER=myapp_user
-      - MYSQL_PASSWORD=myapp_password
-    networks:
-      - hostgator-net
-    depends_on:
-      - mysql
 
   mysql:
     image: percona:5.7.23

@@ -1,10 +1,10 @@
 # HostGator Matching Development Environment (Docker)
 
-This repository provides a **reproducible Docker-based development environment** that closely mimics the **HostGator shared hosting** setup used by the Matching application. It allows you to run a Rails 5.0.5 application with Ruby 2.4.10, MySQL 5.7, and all necessary dependencies in an isolated container, while keeping your project files safely on your host machine.
+This repository provides a **reproducible Docker-based development environment** that closely mimics the **HostGator shared hosting** setup so developers can Pre-Bundle and fully package entire Ruby projects with Gems (Or Python packages) before shipping. It allows you to run a Rails 5.0.5 application with Ruby 2.4.10, MySQL 5.7, and all necessary dependencies in an isolated container, while keeping your project files safely on your host machine.
 
 ## Purpose
 
-The goal is to eliminate the classic “it works on my machine” problem and to provide a consistent environment for developers working on the Matching project. By using this Docker environment, you can:
+Primarily the goal is to provide an environment for developers where they can Pre-Bundle and fully package entire Ruby projects with Gems (Or Python packages) that require compilation so they can ship it to the shared hosting plan and just execute it (Since you wont be able to compile locally within Shared Hosting Plans). By using this Docker environment, you can:
 
 - Develop and test your Rails application locally in an environment identical to HostGator’s production servers.
 - Avoid conflicts with system Ruby versions or installed gems.
