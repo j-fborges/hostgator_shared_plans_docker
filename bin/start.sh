@@ -2,7 +2,7 @@
 set -e
 
 echo "▶️ Starting Docker environment..."
-docker compose up -d
+docker compose up -d mysql
 echo "✅ Environment started. Services:"
 docker compose ps
 
@@ -10,5 +10,5 @@ sleep 2
 
 echo "🔌 Opening bash shell in the app container..."
 echo "Type 'exit' to leave the shell (containers will keep running)."
-docker compose run --rm app bash
-# docker compose exec app bash
+# docker compose run --rm app bash
+docker compose exec app bash

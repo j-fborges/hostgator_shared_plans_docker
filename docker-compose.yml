@@ -13,9 +13,11 @@ services:
       # Mount SSH keys for deployment (optional)
       - ~/.ssh:/root/.ssh:ro
     environment:
+    - BUNDLE_IGNORE_CONFIG=1
     - GEM_HOME=${APP_ROOT}/ruby/gems
     - BUNDLE_PATH=${APP_ROOT}/ruby/gems
     - BUNDLE_BIN=${APP_ROOT}/ruby/gems/bin
+    - BUNDLE_GEMFILE=
     # Add gem bin to PATH while keeping Ruby and system paths
     - PATH=${APP_ROOT}/ruby/gems/bin:/usr/local/ruby-2.4.10/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     # Other env vars you need (RAILS_ENV, etc.)
